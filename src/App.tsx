@@ -25,7 +25,7 @@ function App() {
       const response = await fetch('/.netlify/functions/submit-consultation', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData),
       });
@@ -35,7 +35,7 @@ function App() {
       if (response.ok) {
         setSubmitStatus({
           type: 'success',
-          message: 'Thank you for your inquiry! Gary will contact you within 24 hours.'
+          message: 'Thank you for your enquiry! Gary will contact you within 24 hours.'
         });
         setFormData({ name: '', email: '', phone: '', service: '', message: '' });
       } else {
@@ -87,13 +87,13 @@ function App() {
             <div className="hidden md:flex space-x-8">
               <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors">About</a>
               <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
-              <a href="#app" className="text-gray-700 hover:text-blue-600 transition-colors">Fitness App</a>
+              <a href="#app" className="text-gray-700 hover:text-blue-600 transition-colors">Online Coaching</a>
               <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
             </div>
             <a href="tel:+61" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
               <Phone className="h-4 w-4" />
-              <span>Call Now</span>
+              <span>Call Now - 0422 924 956</span>
             </a>
           </div>
         </div>
@@ -165,7 +165,7 @@ function App() {
               <h2 className="text-4xl font-bold text-gray-900 mb-6">Meet Gary Collins</h2>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                 With over two decades in the fitness industry, Gary Collins has dedicated his career to 
-                transforming lives through personalized fitness solutions. Based in Brisbane, Gary combines 
+                transforming lives through personalised fitness solutions. Based in Brisbane, Gary combines 
                 scientific training methods with genuine care for each client's unique journey.
               </p>
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
@@ -176,7 +176,7 @@ function App() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-6 w-6 text-green-500" />
-                  <span className="text-gray-700">Certified Trainer</span>
+                  <span className="text-gray-700">NDIS / Certified Trainer</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-6 w-6 text-green-500" />
@@ -214,7 +214,7 @@ function App() {
                 One-on-one sessions designed specifically for your goals and fitness level.
               </p>
               <ul className="space-y-2 text-sm text-yellow-100">
-                <li>• Customized workout plans</li>
+                <li>• Customised workout plans</li>
                 <li>• Form correction & technique</li>
                 <li>• Progressive goal setting</li>
                 <li>• Motivation & accountability</li>
@@ -243,7 +243,7 @@ function App() {
               </p>
               <ul className="space-y-2 text-sm text-blue-800">
                 <li>• Sport-specific training</li>
-                <li>• Performance optimization</li>
+                <li>• Performance optimisation</li>
                 <li>• Injury prevention focus</li>
                 <li>• Mental preparation</li>
               </ul>
@@ -256,7 +256,7 @@ function App() {
                 Comprehensive approach combining exercise, nutrition, and lifestyle coaching.
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Personalized meal plans</li>
+                <li>• Personalised meal plans</li>
                 <li>• Cardio & strength training</li>
                 <li>• Progress tracking</li>
                 <li>• Lifestyle modification</li>
@@ -284,7 +284,7 @@ function App() {
                 Virtual training sessions and 24/7 support through comprehensive online platforms.
               </p>
               <ul className="space-y-2 text-sm text-yellow-100">
-                <li>• Live video sessions</li>
+                <li>• Progress photos & measurements</li>
                 <li>• Custom workout videos</li>
                 <li>• Daily check-ins</li>
                 <li>• Nutrition tracking</li>
@@ -366,7 +366,7 @@ function App() {
                   <ExternalLink className="h-5 w-5" />
                 </a>
                 <p className="text-blue-800 text-sm mt-3">
-                  Complete training programs with personalized coaching
+                  Complete training programs with personalised coaching
                 </p>
               </div>
             </div>
@@ -535,7 +535,7 @@ function App() {
                 <ul className="space-y-2 text-sm text-yellow-100 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
-                    <span>Fully customized plan</span>
+                    <span>Fully customised plan</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
@@ -576,7 +576,7 @@ function App() {
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Personalized workout</span>
+                    <span>Personalised workout</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
@@ -754,7 +754,7 @@ function App() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Phone</h4>
-                    <p className="text-gray-600">+61 XXX XXX XXX</p>
+                    <p className="text-gray-600">+61 422 924 956</p>
                     <p className="text-sm text-gray-500">Available Mon-Fri 6AM-8PM</p>
                   </div>
                 </div>
@@ -786,11 +786,11 @@ function App() {
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-4">Follow Us</h4>
                 <div className="flex space-x-4">
-                  <a href="#" className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-lg text-white hover:scale-110 transition-transform">
+                  <a href="https://www.instagram.com/_gc_pt_/" className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-lg text-white hover:scale-110 transition-transform">
                     <Instagram className="h-6 w-6" />
                   </a>
-                  <a href="#" className="bg-blue-600 p-3 rounded-lg text-white hover:scale-110 transition-transform">
-                    <Facebook className="h-6 w-6" />
+                  <a href="https://www.facebook.com/profile.php?id=100063581411965" className="bg-blue-600 p-3 rounded-lg text-white hover:scale-110 transition-transform">
+                   <Facebook className="h-6 w-6" />
                   </a>
                 </div>
               </div>
@@ -933,10 +933,10 @@ function App() {
                 helping people transform their lives through fitness.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://www.instagram.com/_gc_pt_/" className="text-gray-400 hover:text-white transition-colors">
                   <Instagram className="h-6 w-6" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://www.facebook.com/profile.php?id=100063581411965" className="text-gray-400 hover:text-white transition-colors">
                   <Facebook className="h-6 w-6" />
                 </a>
               </div>
@@ -958,14 +958,14 @@ function App() {
               <div className="space-y-2 text-gray-400">
                 <p>344 Redbank Plains Road</p>
                 <p>Bellbird Park, QLD 4300</p>
-                <p>Phone: +61 XXX XXX XXX</p>
+                <p>Phone: +61 422 924 956</p>
                 <p>Email: gary@gc-pt.com.au</p>
               </div>
             </div>
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 GC-PT Personal Training. All rights reserved.</p>
+            <p>&copy; 2025 GC-PT Personal Training. All rights reserved.</p>
           </div>
         </div>
       </footer>
