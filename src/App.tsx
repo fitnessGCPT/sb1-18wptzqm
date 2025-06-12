@@ -67,7 +67,7 @@ function App() {
     if (window.innerWidth <= 768) {
       // Redirect to app store on mobile
       // Replace this URL with Gary's actual app store link
-      window.open('https://your-app-store-link.com', '_blank');
+      window.open('https://www.trainerize.me/checkout/gcpt4/Gary.Collins?planGUID=578d7326a7e942c090a61b2289664617', '_blank');
     } else {
       // Show scan message on desktop
       alert('Scan this QR code with your phone camera to download the GC-PT app!');
@@ -91,7 +91,7 @@ function App() {
               <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
             </div>
-            <a href="tel:+61" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+            <a href="tel:+61 422 924 956" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
               <Phone className="h-4 w-4" />
               <span>Call Now - 0422 924 956</span>
             </a>
