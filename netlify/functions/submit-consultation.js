@@ -18,11 +18,11 @@ exports.handler = async (event, context) => {
       records: [
         {
           fields: {
-            Name: name,
-            Email: email,
-            Phone: phone,  // Changed from Number
-            Service: service,
-            Message: message  // Changed from Goals
+            name: name,
+            email: email,
+            phone: phone,  // Changed from Number
+            service: service,
+            message: message  // Changed from Goals
           }
         }
       ]
