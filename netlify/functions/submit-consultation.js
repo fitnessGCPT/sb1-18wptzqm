@@ -7,7 +7,15 @@ exports.handler = async (event, context) => {
   }
   
   try {
-    const { name, email, phone, service, message } = JSON.parse(event.body);
+    const { name, email, phone, service, message, honeypot } = JSON.parse(event.body);
+
+// If honeypot is filled, pretend it worked
+if (honeypot) {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'Form submitted successfully!' })
+  };
+}
     
     // Log environment variables (without showing the actual API key)
     console.log('Base ID exists:', !!process.env.AIRTABLE_BASE_ID);
