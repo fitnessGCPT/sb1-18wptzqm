@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Instagram, Facebook, Dumbbell, Users, Trophy, Smartphone, Star, ArrowRight, CheckCircle, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Phone, Mail, MapPin, Instagram, Facebook, Dumbbell, Users, Trophy, Smartphone, Star, ArrowRight, CheckCircle, ExternalLink, X } from 'lucide-react';
 
 function App() {
   const [formData, setFormData] = useState({
@@ -7,7 +7,8 @@ function App() {
     email: '',
     phone: '',
     service: '',
-    message: ''
+    message: '',
+    honeypot: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,44 +17,63 @@ function App() {
     message: string;
   }>({ type: null, message: '' });
 
+    const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const openPrivacyPolicy = () => setShowPrivacyPolicy(true);
+  const closePrivacyPolicy = () => setShowPrivacyPolicy(false);
+
+
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: '' });
-
-    try {
-      const response = await fetch('/.netlify/functions/submit-consultation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData),
+  e.preventDefault();
+  setIsSubmitting(true);
+  setSubmitStatus({ type: null, message: '' });
+  
+  // If honeypot is filled (bot detected), fake a success message
+  if (formData.honeypot) {
+    setTimeout(() => {
+      setSubmitStatus({
+        type: 'success',
+        message: 'Thank you for your enquiry! Gary will contact you within 24 hours.'
       });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setSubmitStatus({
-          type: 'success',
-          message: 'Thank you for your enquiry! Gary will contact you within 24 hours.'
-        });
-        setFormData({ name: '', email: '', phone: '', service: '', message: '' });
-      } else {
-        setSubmitStatus({
-          type: 'error',
-          message: result.error || 'Failed to submit your request. Please try again.'
-        });
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
+      setFormData({ name: '', email: '', phone: '', service: '', message: '', honeypot: '' });
+      setIsSubmitting(false);
+    }, 1000);
+    return;
+  }
+  
+  // Normal form submission for real users
+  try {
+    const response = await fetch('/.netlify/functions/submit-consultation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData),
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      setSubmitStatus({
+        type: 'success',
+        message: 'Thank you for your enquiry! Gary will contact you within 24 hours.'
+      });
+      setFormData({ name: '', email: '', phone: '', service: '', message: '', honeypot: '' });
+    } else {
       setSubmitStatus({
         type: 'error',
-        message: 'Network error. Please check your connection and try again.'
+        message: result.error || 'Failed to submit your request. Please try again.'
       });
-    } finally {
-      setIsSubmitting(false);
     }
-  };
+  } catch (error) {
+    console.error('Form submission error:', error);
+    setSubmitStatus({
+      type: 'error',
+      message: 'Network error. Please check your connection and try again.'
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -93,7 +113,7 @@ function App() {
             </div>
             <a href="tel:+61 422 924 956" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
               <Phone className="h-4 w-4" />
-              <span>Call Now - 0422 924 956</span>
+              <span>Call Now{window.innerWidth > 768 && ' - 0422 924 956'}</span>
             </a>
           </div>
         </div>
@@ -176,7 +196,7 @@ function App() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-6 w-6 text-green-500" />
-                  <span className="text-gray-700">NDIS / Certified Trainer</span>
+                  <span className="text-gray-700">NDIS / Children's / Certified Trainer</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-6 w-6 text-green-500" />
@@ -190,6 +210,14 @@ function App() {
                   <CheckCircle className="h-6 w-6 text-green-500" />
                   <span className="text-gray-700">Mental Health Focus</span>
                 </div>
+                <div className="flex items-center space-x-3">
+    <CheckCircle className="h-6 w-6 text-green-500" />
+    <span className="text-gray-700">Online Coaching / Cert 3 & 4</span>
+  </div>
+                <div className="flex items-center space-x-3">
+    <CheckCircle className="h-6 w-6 text-green-500" />
+    <span className="text-gray-700">Boxing / Kettlebell / TRX</span>
+  </div>
               </div>
             </div>
           </div>
@@ -218,6 +246,9 @@ function App() {
                 <li>• Form correction & technique</li>
                 <li>• Progressive goal setting</li>
                 <li>• Motivation & accountability</li>
+                 <li>• Women's Fitness</li>
+                 <li>• Functional and Core Training</li>
+                <li>• Muscle and Strength Gain</li>
               </ul>
             </div>
 
@@ -232,6 +263,7 @@ function App() {
                 <li>• Varied workout routines</li>
                 <li>• Cost-effective option</li>
                 <li>• Social fitness environment</li>
+                  <li>• Partner Training</li>
               </ul>
             </div>
 
@@ -246,6 +278,8 @@ function App() {
                 <li>• Performance optimisation</li>
                 <li>• Injury prevention focus</li>
                 <li>• Mental preparation</li>
+                  <li>• Bodybuilding and Competing</li>
+                  <li>• Endurance Training</li>
               </ul>
             </div>
 
@@ -260,6 +294,7 @@ function App() {
                 <li>• Cardio & strength training</li>
                 <li>• Progress tracking</li>
                 <li>• Lifestyle modification</li>
+                <li>• Weight Loss</li>
               </ul>
             </div>
 
@@ -274,6 +309,7 @@ function App() {
                 <li>• Corrective exercise</li>
                 <li>• Mobility improvement</li>
                 <li>• Pain management</li>
+                 <li>• Physiotherapy</li>
               </ul>
             </div>
 
@@ -288,6 +324,7 @@ function App() {
                 <li>• Custom workout videos</li>
                 <li>• Daily check-ins</li>
                 <li>• Nutrition tracking</li>
+                 <li>• Online Personal Training</li>
               </ul>
             </div>
           </div>
@@ -350,7 +387,7 @@ function App() {
                   />
                 </div>
                 <p className="text-blue-800 text-sm mt-3">
-                  Scan to access pocket trainer workouts
+                  {window.innerWidth <= 768 ? 'Tap QR to access pocket trainer workouts' : 'Scan to access pocket trainer workouts'}
                 </p>
               </div>
 
@@ -423,7 +460,8 @@ function App() {
                     <span>No lock-in contract</span>
                   </li>
                 </ul>
-                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
+                  onClick={() => window.open('https://www.trainerize.me/checkout/gcpt4/Gary.Collins?planGUID=578d7326a7e942c090a61b2289664617', '_blank')}>
                   Get Started
                 </button>
               </div>
@@ -432,29 +470,29 @@ function App() {
               <div className="bg-white border-2 border-gray-200 p-6 rounded-2xl hover:shadow-xl transition-shadow">
                 <div className="text-center mb-6">
                   <Users className="h-12 w-12 mx-auto mb-4 text-blue-600" />
-                  <h4 className="text-xl font-bold mb-2 text-gray-900">Basic Online</h4>
-                  <div className="text-3xl font-bold text-blue-600">$75</div>
+                  <h4 className="text-xl font-bold mb-2 text-gray-900">Nutrition<br />Meal Plan Only</h4>
+                  <div className="text-3xl font-bold text-blue-600">$35.00</div>
                   <div className="text-sm text-gray-600">per week</div>
                 </div>
                 <ul className="space-y-2 text-sm text-gray-600 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Custom workout plan</span>
+                    <span>App Access</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Weekly check-ins</span>
+                    <span>Custom Nutrition</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Exercise video library</span>
+                    <span>Recipe Library</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Basic nutrition guidance</span>
+                    <span>Full Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"  onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
                   Choose Plan
                 </button>
               </div>
@@ -462,33 +500,32 @@ function App() {
               {/* Premium Online */}
               <div className="bg-gradient-to-br from-cyan-400 to-cyan-500 p-6 rounded-2xl text-blue-900 hover:scale-105 transition-transform relative">
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-yellow-400 text-blue-900 px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
                 </div>
                 <div className="text-center mb-6">
                   <Trophy className="h-12 w-12 mx-auto mb-4 text-blue-900" />
-                  <h4 className="text-xl font-bold mb-2">Premium Online</h4>
-                  <div className="text-3xl font-bold text-blue-900">$125</div>
+                  <h4 className="text-xl font-bold mb-2">Premium<br />Training & Nutrition</h4>
+                  <div className="text-3xl font-bold text-blue-900">$75.00</div>
                   <div className="text-sm text-blue-800">per week</div>
                 </div>
                 <ul className="space-y-2 text-sm text-blue-800 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Everything in Basic</span>
+                    <span>For Fitness Competitors</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Bi-weekly video calls</span>
+                    <span>Custom Nutrition</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Detailed meal plans</span>
+                    <span>Personal Training</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>24/7 chat support</span>
+                    <span>Full Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-900 text-cyan-300 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors">
+                <button className="w-full bg-blue-900 text-cyan-300 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors"onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
                   Choose Plan
                 </button>
               </div>
@@ -497,61 +534,64 @@ function App() {
               <div className="bg-white border-2 border-gray-200 p-6 rounded-2xl hover:shadow-xl transition-shadow">
                 <div className="text-center mb-6">
                   <Star className="h-12 w-12 mx-auto mb-4 text-blue-600" />
-                  <h4 className="text-xl font-bold mb-2 text-gray-900">Elite Online</h4>
-                  <div className="text-3xl font-bold text-blue-600">$175</div>
+                  <h4 className="text-xl font-bold mb-2 text-gray-900">Training<br />&<br />Nutrition Coaching</h4>
+                  <div className="text-3xl font-bold text-blue-600">$50.00</div>
                   <div className="text-sm text-gray-600">per week</div>
                 </div>
                 <ul className="space-y-2 text-sm text-gray-600 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Everything in Premium</span>
+                    <span>Mobile App</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Weekly video calls</span>
+                    <span>Custom Nutrition</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Supplement guidance</span>
+                    <span>Workout Programs</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Priority support</span>
+                    <span>Ongoing Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
                   Choose Plan
                 </button>
               </div>
 
               {/* Custom Online */}
-              <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-2xl text-yellow-400 hover:scale-105 transition-transform">
-                <div className="text-center mb-6">
+             <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-2xl text-yellow-400 hover:scale-105 transition-transform relative">
+  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+    <span className="bg-yellow-400 text-blue-900 px-4 py-1 rounded-full text-sm font-semibold">MostPopular</span>
+  </div>     
+  <div className="text-center mb-6">
                   <Dumbbell className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
-                  <h4 className="text-xl font-bold mb-2">Custom Program</h4>
-                  <div className="text-3xl font-bold text-yellow-300">$250</div>
+                  <h4 className="text-xl font-bold mb-2">Training Program<br />Only</h4>
+                  <div className="text-3xl font-bold text-yellow-300">$35.00</div>
                   <div className="text-sm text-yellow-100">per week</div>
                 </div>
                 <ul className="space-y-2 text-sm text-yellow-100 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
-                    <span>Fully customised plan</span>
+                    <span>Mobile App</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
-                    <span>Daily check-ins</span>
+                    <span>Custom Workouts</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
-                    <span>Unlimited support</span>
+                    <span>Video Guidance</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
-                    <span>VIP treatment</span>
+                    <span>Regular Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
-                  Contact Gary
+                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
+                  Get Started
                 </button>
               </div>
             </div>
@@ -560,19 +600,19 @@ function App() {
           {/* In-Person Training Pricing */}
           <div>
             <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">In-Person Training</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Single Session */}
               <div className="bg-white border-2 border-gray-200 p-6 rounded-2xl hover:shadow-xl transition-shadow">
                 <div className="text-center mb-6">
                   <Dumbbell className="h-12 w-12 mx-auto mb-4 text-blue-600" />
                   <h4 className="text-xl font-bold mb-2 text-gray-900">Single Session</h4>
-                  <div className="text-3xl font-bold text-blue-600">$80</div>
+                  <div className="text-3xl font-bold text-blue-600">$60</div>
                   <div className="text-sm text-gray-600">per session</div>
                 </div>
                 <ul className="space-y-2 text-sm text-gray-600 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>1-hour session</span>
+                    <span>30-min session</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
@@ -587,7 +627,8 @@ function App() {
                     <span>Goal assessment</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  onClick={() => window.location.href = '#contact'}>
                   Book Session
                 </button>
               </div>
@@ -596,14 +637,14 @@ function App() {
               <div className="bg-gradient-to-br from-cyan-400 to-cyan-500 p-6 rounded-2xl text-blue-900 hover:scale-105 transition-transform">
                 <div className="text-center mb-6">
                   <Users className="h-12 w-12 mx-auto mb-4 text-blue-900" />
-                  <h4 className="text-xl font-bold mb-2">4-Session Package</h4>
-                  <div className="text-3xl font-bold text-blue-900">$300</div>
-                  <div className="text-sm text-blue-800">$75 per session</div>
+                  <h4 className="text-xl font-bold mb-2">Single Session</h4>
+                  <div className="text-3xl font-bold text-blue-900">$120</div>
+                  <div className="text-sm text-blue-800">per session</div>
                 </div>
                 <ul className="space-y-2 text-sm text-blue-800 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Save $20 total</span>
+                    <span>1-hour Session</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
@@ -611,15 +652,16 @@ function App() {
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Nutrition guidance</span>
+                    <span>Personalised workout</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>2-month validity</span>
+                    <span>Form Correction</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-900 text-cyan-300 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors">
-                  Buy Package
+                <button className="w-full bg-blue-900 text-cyan-300 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors"
+                  onClick={() => window.location.href = '#contact'}>
+                  Book Session
                 </button>
               </div>
 
@@ -630,14 +672,14 @@ function App() {
                 </div>
                 <div className="text-center mb-6">
                   <Trophy className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
-                  <h4 className="text-xl font-bold mb-2">8-Session Package</h4>
-                  <div className="text-3xl font-bold text-yellow-300">$560</div>
-                  <div className="text-sm text-yellow-100">$70 per session</div>
+                  <h4 className="text-xl font-bold mb-2">Bundle Sessions</h4>
+                  <div className="text-3xl font-bold text-yellow-300">$$$</div>
+                  <div className="text-sm text-yellow-100">per session</div>
                 </div>
                 <ul className="space-y-2 text-sm text-yellow-100 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
-                    <span>Save $80 total</span>
+                    <span>Save</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
@@ -652,75 +694,12 @@ function App() {
                     <span>3-month validity</span>
                   </li>
                 </ul>
-                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
-                  Buy Package
+                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
+                  onClick={() => window.location.href = '#contact'}>
+                  Speak to Gary
                 </button>
               </div>
-
-              {/* 12-Session Package */}
-              <div className="bg-white border-2 border-gray-200 p-6 rounded-2xl hover:shadow-xl transition-shadow">
-                <div className="text-center mb-6">
-                  <Star className="h-12 w-12 mx-auto mb-4 text-blue-600" />
-                  <h4 className="text-xl font-bold mb-2 text-gray-900">12-Session Package</h4>
-                  <div className="text-3xl font-bold text-blue-600">$780</div>
-                  <div className="text-sm text-gray-600">$65 per session</div>
-                </div>
-                <ul className="space-y-2 text-sm text-gray-600 mb-6">
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Save $180 total</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Complete transformation</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Full nutrition plan</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>4-month validity</span>
-                  </li>
-                </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                  Buy Package
-                </button>
-              </div>
-
-              {/* Group Training */}
-              <div className="bg-gradient-to-br from-cyan-400 to-cyan-500 p-6 rounded-2xl text-blue-900 hover:scale-105 transition-transform">
-                <div className="text-center mb-6">
-                  <Users className="h-12 w-12 mx-auto mb-4 text-blue-900" />
-                  <h4 className="text-xl font-bold mb-2">Group Training</h4>
-                  <div className="text-3xl font-bold text-blue-900">$45</div>
-                  <div className="text-sm text-blue-800">per session</div>
-                </div>
-                <ul className="space-y-2 text-sm text-blue-800 mb-6">
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Max 6 people</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Fun atmosphere</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Varied workouts</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Cost effective</span>
-                  </li>
-                </ul>
-                <button className="w-full bg-blue-900 text-cyan-300 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors">
-                  Join Group
-                </button>
-              </div>
-            </div>
-          </div>
-
+</div>
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">
               Not sure which option is right for you? Let's discuss your goals and find the perfect fit.
@@ -729,6 +708,7 @@ function App() {
               <span>Get Free Consultation</span>
               <ArrowRight className="h-5 w-5" />
             </a>
+            </div>
           </div>
         </div>
       </section>
@@ -741,6 +721,11 @@ function App() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Ready to begin your fitness journey? Get in touch today for a free consultation.
             </p>
+            {window.innerWidth <= 768 && (
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto mt-4">
+          Scroll down for free consultation form.
+        </p>
+      )}
           </div>
           
           <div className="grid lg:grid-cols-2 gap-12">
@@ -896,9 +881,19 @@ function App() {
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="What are your fitness goals? Any injuries or limitations we should know about?"
+                    placeholder="Keep it general - no personal or sensitive details needed! We can cover anything private during your personal consultation."
                     disabled={isSubmitting}
                   />
+{/* Add this hidden field - bots will fill it, humans won't see it */}
+<input
+  type="text"
+  name="honeypot"
+  value={formData.honeypot}
+  onChange={handleChange}
+  style={{ display: 'none' }}
+  tabIndex={-1}
+  autoComplete="off"
+/>
                 </div>
                 
                 <button
@@ -950,6 +945,14 @@ function App() {
                 <li><a href="#app" className="hover:text-white transition-colors">Fitness App</a></li>
                 <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+                <li>
+                  <button
+                    onClick={openPrivacyPolicy}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Privacy Policy
+                  </button>
+                </li>
               </ul>
             </div>
             
@@ -965,12 +968,120 @@ function App() {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 GC-PT Personal Training. All rights reserved.</p>
+            <p>&copy; 2025 GC-PT Personal Training. All rights reserved. | ABN: 12 345 678 901</p>
           </div>
         </div>
       </footer>
+
+      {/* Privacy Policy Popup */}
+      {showPrivacyPolicy && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+          onClick={closePrivacyPolicy}
+        >
+          <div 
+            className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="bg-blue-700 text-yellow-400 p-4 rounded-t-lg flex justify-between items-center">
+              <h2 className="text-xl font-bold">Privacy Policy</h2>
+              <button
+                onClick={closePrivacyPolicy}
+                className="hover:bg-blue-600 p-1 rounded transition-colors duration-200"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="overflow-y-auto p-6 space-y-4 text-gray-800">
+              <p className="text-sm text-gray-600">
+                <strong>Effective Date:</strong> June 15, 2025
+              </p>
+
+              <section>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2">Information We Collect</h3>
+                <p className="mb-2">Through our website contact form, we collect the following personal information:</p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>Your name</li>
+                  <li>Email address</li>
+                  <li>Phone number</li>
+                  <li>Message content (which may include general information about fitness goals, broad health considerations, or training preferences)</li>
+                </ul>
+                <div className="bg-cyan-50 border-l-4 border-cyan-500 p-3 mt-3">
+                  <p className="text-cyan-800">
+                    <strong>Important:</strong> Please do not include specific personal health information, detailed medical history, or sensitive personal details in the message field. Any additional information required will be discussed privately during your consultation.
+                  </p>
+                </div>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2">How We Use Your Information</h3>
+                <p className="mb-2">The personal information we collect is used solely for:</p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>Responding to your initial inquiry</li>
+                  <li>Scheduling consultations</li>
+                  <li>Providing information about our personal training services</li>
+                  <li>Following up on your fitness and training needs</li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2">Information Storage</h3>
+                <p>
+                  Your personal information is securely stored in our Airtable database system. We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2">Information Sharing</h3>
+                <p>
+                  We do not share, sell, or distribute your personal information to any third parties. Your information is kept strictly confidential and is only accessible to authorized GC-PT staff for the purposes outlined above.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2">Your Rights</h3>
+                <p className="mb-2">Under Australian privacy law, you have the right to:</p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>Request access to the personal information we hold about you</li>
+                  <li>Request correction of any inaccurate or incomplete information</li>
+                  <li>Request deletion of your personal information (subject to our legal obligations)</li>
+                  <li>Withdraw consent for us to contact you at any time</li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2">Contact Us</h3>
+                <p className="mb-2">If you have any questions about this Privacy Policy or wish to exercise your privacy rights, please contact us:</p>
+                <div className="bg-gray-50 p-3 rounded">
+                  <p><strong>Email:</strong> gary@gc-pt.com.au</p>
+                  <p><strong>Phone:</strong> +61 422 924 956</p>
+                  <p><strong>Address:</strong> 344 Redbank Plains Road, Bellbird Park, QLD 4300</p>
+                  <p><strong>ABN:</strong> [Your ABN Number]</p>
+                </div>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2">Updates to This Policy</h3>
+                <p>
+                  We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.
+                </p>
+              </section>
+
+              <div className="bg-blue-50 border border-blue-200 p-3 rounded mt-4">
+                <p className="text-blue-800 text-sm">
+                  This Privacy Policy complies with the Australian Privacy Principles under the Privacy Act 1988 (Cth).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+    
 
 export default App;
