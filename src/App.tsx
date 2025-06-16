@@ -673,13 +673,13 @@ function App() {
                 <div className="text-center mb-6">
                   <Trophy className="h-12 w-12 mx-auto mb-4 text-yellow-300" />
                   <h4 className="text-xl font-bold mb-2">Bundle Sessions</h4>
-                  <div className="text-3xl font-bold text-yellow-300">$$$</div>
-                  <div className="text-sm text-yellow-100">per session</div>
+                  <div className="text-3xl font-bold text-yellow-300">$$$'s</div>
+                  <div className="text-sm text-yellow-100">saved</div>
                 </div>
                 <ul className="space-y-2 text-sm text-yellow-100 mb-6">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
-                    <span>Save</span>
+                    <span>Value for money</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
