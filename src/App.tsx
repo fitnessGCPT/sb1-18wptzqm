@@ -259,11 +259,10 @@ function App() {
                 Small group sessions that combine personal attention with team motivation.
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Maximum 6 people per group</li>
+                <li>• Minimum 3 people per group</li>
                 <li>• Varied workout routines</li>
                 <li>• Cost-effective option</li>
                 <li>• Social fitness environment</li>
-                  <li>• Partner Training</li>
               </ul>
             </div>
 
@@ -317,12 +316,12 @@ function App() {
               <Smartphone className="h-12 w-12 mb-6 text-yellow-300" />
               <h3 className="text-2xl font-bold mb-4">Online Coaching</h3>
               <p className="text-yellow-100 mb-6">
-                Virtual training sessions and 24/7 support through comprehensive online platforms.
+                Training video library and 24/7 support through comprehensive online platforms.
               </p>
               <ul className="space-y-2 text-sm text-yellow-100">
                 <li>• Progress photos & measurements</li>
-                <li>• Custom workout videos</li>
-                <li>• Daily check-ins</li>
+                <li>• Custom workouts & videos</li>
+                <li>• Weekly check-ins</li>
                 <li>• Nutrition tracking</li>
                  <li>• Online Personal Training</li>
               </ul>
@@ -359,7 +358,7 @@ function App() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-900">Progress Tracking</h4>
-                    <p className="text-blue-800">Monitor your improvements with detailed analytics</p>
+                    <p className="text-blue-800">Monitor your improvements with results overview</p>
                   </div>
                 </div>
                 
@@ -459,6 +458,10 @@ function App() {
                     <CheckCircle className="h-4 w-4 text-yellow-300" />
                     <span>No lock-in contract</span>
                   </li>
+                  <li className="flex items-center space-x-2">
+                    <CheckCircle className="h-4 w-4 text-yellow-300" />
+                    <span>Full support</span>
+                    </li>
                 </ul>
                 <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
                   onClick={() => window.open('https://www.trainerize.me/checkout/gcpt4/Gary.Collins?planGUID=578d7326a7e942c090a61b2289664617', '_blank')}>
@@ -624,7 +627,7 @@ function App() {
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Goal assessment</span>
+                    <span>Goal assessment / setting</span>
                   </li>
                 </ul>
                 <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
@@ -648,7 +651,7 @@ function App() {
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
-                    <span>Progressive program</span>
+                    <span>More in depth program</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-blue-900" />
@@ -750,7 +753,7 @@ function App() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Email</h4>
-                    <p className="text-gray-600">gary@gc-pt.com.au</p>
+                    <p className="text-gray-600">garypcollins@live.com.au</p>
                     <p className="text-sm text-gray-500">Response within 24 hours</p>
                   </div>
                 </div>
@@ -834,12 +837,13 @@ function App() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number
+                      Phone Number *
                     </label>
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
+                      required
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -849,11 +853,12 @@ function App() {
                   </div>
                   <div>
                     <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                      Service Interest
+                      Service Interest *
                     </label>
                     <select
                       id="service"
                       name="service"
+                      required
                       value={formData.service}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -872,11 +877,12 @@ function App() {
                 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Tell us about your goals
+                    Tell us about your goals *
                   </label>
                   <textarea
                     id="message"
                     name="message"
+                    required
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
@@ -962,7 +968,7 @@ function App() {
                 <p>344 Redbank Plains Road</p>
                 <p>Bellbird Park, QLD 4300</p>
                 <p>Phone: +61 422 924 956</p>
-                <p>Email: gary@gc-pt.com.au</p>
+                <p>Email: garypcollins@live.com.au</p>
               </div>
             </div>
           </div>
@@ -970,7 +976,7 @@ function App() {
  <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
   <div className="flex items-center justify-center space-x-2">
     <img src="https://i.imgur.com/3WBbmhh.jpeg" alt="GC-PT Logo" className="h-6 w-6 rounded-full" />
-    <p>&copy; 2025 GC-PT Personal Training. All rights reserved. | ABN: 12 345 678 901</p>
+    <p>&copy; 2025 GC-PT Personal Training. All rights reserved. | ABN: 61 574 728 590</p>
   </div>
 </div>
         </div>
@@ -1059,10 +1065,10 @@ function App() {
                 <h3 className="text-lg font-semibold text-blue-700 mb-2">Contact Us</h3>
                 <p className="mb-2">If you have any questions about this Privacy Policy or wish to exercise your privacy rights, please contact us:</p>
                 <div className="bg-gray-50 p-3 rounded">
-                  <p><strong>Email:</strong> gary@gc-pt.com.au</p>
+                  <p><strong>Email:</strong> garypcollins@live.com.au</p>
                   <p><strong>Phone:</strong> +61 422 924 956</p>
                   <p><strong>Address:</strong> 344 Redbank Plains Road, Bellbird Park, QLD 4300</p>
-                  <p><strong>ABN:</strong> [Your ABN Number]</p>
+                  <p><strong>ABN:</strong> 61 574 782 590</p>
                 </div>
               </section>
 
