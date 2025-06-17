@@ -967,12 +967,13 @@ function App() {
             </div>
           </div>
           
-  <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+ <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
   <div className="flex items-center justify-center space-x-2">
     <img src="https://i.imgur.com/3WBbmhh.jpeg" alt="GC-PT Logo" className="h-6 w-6 rounded-full" />
     <p>&copy; 2025 GC-PT Personal Training. All rights reserved. | ABN: 12 345 678 901</p>
   </div>
 </div>
+        </div>
 </footer>
 
       {/* Privacy Policy Popup */}
