@@ -952,6 +952,7 @@ function App() {
                 <li><a href="#app" className="hover:text-white transition-colors">Fitness App</a></li>
                 <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+                 <li><a href="https://gcpt.life/blog.html" className="hover:text-white transition-colors">Blogs</a></li>
                 <li>
                   <button
                     onClick={openPrivacyPolicy}
