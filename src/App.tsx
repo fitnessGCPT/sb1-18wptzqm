@@ -110,6 +110,7 @@ function App() {
               <a href="#app" className="text-gray-700 hover:text-blue-600 transition-colors">Online Coaching</a>
               <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+              <a href="#https://gcpt.life/blog.html" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600 transition-colors">Blogs</a>
             </div>
             <a href="tel:+61 422 924 956" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
               <Phone className="h-4 w-4" />
