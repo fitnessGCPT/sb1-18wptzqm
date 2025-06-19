@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCPT Blog - Personal Training Brisbane</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #fbbf24;
+        }
+
+        .blog-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .blog-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .blog-card {
+            background: #0891b2;
+            border-radius: 15px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 2px solid transparent;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: #fbbf24;
+        }
+
+        .blog-card h3 {
+            color: #1e293b;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .blog-card p {
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .blog-card .read-more {
+            color: #1e293b;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(251, 191, 36, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .blog-card .read-more:hover {
+            background: #fbbf24;
+            color: #1e40af;
+        }
+
+        /* Popover Styles */
+        .popover-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .popover-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1e40af;
+            border-radius: 20px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 40px;
+            color: #fbbf24;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 3px solid #0891b2;
+        }
+
+        .popover-content h2 {
+            color: #fbbf24;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .popover-content .post-meta {
+            color: #0891b2;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .popover-content h3 {
+            color: #fbbf24;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+
+        .popover-content p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #e5e7eb;
+        }
+
+        .popover-content ul {
+            margin: 15px 0 20px 20px;
+            color: #e5e7eb;
+        }
+
+        .popover-content li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .popover-content strong, .popover-content em {
+            color: #fbbf24;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #fbbf24;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(251, 191, 36, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .rss-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .rss-link a {
+            background: #fbbf24;
+            color: #1e40af;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .rss-link a:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+            
+            .popover-content {
+                margin: 20px;
+                max-width: calc(100% - 40px);
+                padding: 30px 25px;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <div class="blog-header">
+            <h1>GCPT Blog</h1>
+            <p>Personal Training Insights from Brisbane</p>
+        </div>
+
+        <div class="blog-grid">
+            <div class="blog-card" onclick="openPopover('post1')">
+                <h3>Why Choose a Personal Trainer Over a Gym Membership?</h3>
+                <p>If you're weighing up whether to invest in a personal trainer or stick with a standard gym membership, you're not alone. Many Brisbane residents face this decision when they're serious about getting fit and healthy.</p>
+                <span class="read-more">Read Full Article</span>
+            </div>
+
+            <div class="blog-card" onclick="openPopover('post2')">
+                <h3>Personal Training for NDIS Participants</h3>
+                <p>Fitness should be accessible to everyone, and that's exactly what NDIS funding for personal training makes possible. As an NDIS-registered personal trainer here in Brisbane, discover how transformative proper fitness support can be.</p>
+                <span class="read-more">Read Full Article</span>
+            </div>
+
+            <div class="blog-card" onclick="openPopover('post3')">
+                <h3>Why Personalised Training Beats Fitness Trends in 2025</h3>
+                <p>Every year brings new fitness trends promising to be the "game changer" you've been waiting for. But here's the thing – the most effective approach to fitness isn't trendy at all. It's personalised.</p>
+                <span class="read-more">Read Full Article</span>
+            </div>
+        </div>
+
+        <div class="rss-link">
+            <a href="/feed.xml">Subscribe to RSS Feed</a>
+        </div>
+    </div>
+
+    <!-- Popover 1 -->
+    <div id="post1" class="popover-overlay" onclick="closePopover('post1')">
+        <div class="popover-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closePopover('post1')">&times;</button>
+            <h2>Why Choose a Personal Trainer Over a Gym Membership?</h2>
+            <div class="post-meta">Published: June 19, 2025</div>
+            
+            <p>If you're weighing up whether to invest in a personal trainer or stick with a standard gym membership, you're not alone. Many Brisbane residents face this decision when they're serious about getting fit and healthy.</p>
+
+            <h3>The Reality of Gym Memberships</h3>
+            <p>Let's be honest – how many times have you signed up for a gym membership with the best intentions, only to find yourself making excuses after the first few weeks? You're not alone. Studies show that most gym members use their membership less than twice per week, and many stop going altogether within three months.</p>
+            <p>The problem isn't lack of motivation – it's lack of direction, accountability, and personalised guidance.</p>
+
+            <h3>What Personal Training Actually Delivers</h3>
+            <p><strong>Accountability That Works:</strong> Your trainer is expecting you. There's no hiding behind excuses or putting off your workout until tomorrow. This simple fact alone dramatically increases your consistency.</p>
+            <p><strong>Proper Form and Safety:</strong> Poor technique doesn't just reduce results – it leads to injury. A qualified personal trainer ensures you're moving correctly from day one, preventing setbacks that could derail your progress for months.</p>
+            <p><strong>Programmes That Evolve:</strong> Generic gym routines get stale quickly. Personal trainers adjust your programme based on your progress, keeping workouts challenging and engaging.</p>
+            <p><strong>Faster, Measurable Results:</strong> With expert guidance, you'll see improvements in strength, fitness, and body composition much faster than going it alone.</p>
+
+            <h3>The Investment Perspective</h3>
+            <p>Yes, personal training costs more upfront than a gym membership. But consider this: what's the real cost of a gym membership you barely use? Factor in the time wasted on ineffective workouts, potential injury costs, and the frustration of not seeing results.</p>
+            <p>Personal training is an investment in getting it right the first time.</p>
+
+            <h3>Making It Work for Brisbane Lifestyles</h3>
+            <p>Living in Brisbane, we understand the challenges of maintaining fitness routines year-round. Whether it's the summer heat, sudden storms, or busy work schedules, having a trainer who adapts to your lifestyle and Brisbane's unique conditions makes all the difference.</p>
+            <p>The bottom line? If you're serious about achieving your fitness goals efficiently and safely, personal training isn't just better than a gym membership – it's incomparable.</p>
+        </div>
+    </div>
+
+    <!-- Popover 2 -->
+    <div id="post2" class="popover-overlay" onclick="closePopover('post2')">
+        <div class="popover-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closePopover('post2')">&times;</button>
+            <h2>Personal Training for NDIS Participants: Creating Inclusive Fitness Goals</h2>
+            <div class="post-meta">Published: June 19, 2025</div>
+            
+            <p>Fitness should be accessible to everyone, and that's exactly what NDIS funding for personal training makes possible. As an NDIS-registered personal trainer here in Brisbane, I've seen firsthand how transformative proper fitness support can be for participants.</p>
+
+            <h3>Understanding NDIS Fitness Support</h3>
+            <p>The NDIS recognises that physical fitness is crucial for overall wellbeing, independence, and quality of life. Under the "Improved Health and Wellbeing" category, participants can use their funding for personal training that supports their specific goals and needs.</p>
+            <p>This isn't about one-size-fits-all fitness – it's about creating programmes that work with your abilities, challenges, and aspirations.</p>
+
+            <h3>What Makes NDIS Personal Training Different</h3>
+            <p><strong>Individualised Assessment:</strong> Every participant starts with a comprehensive assessment that considers their disability, current fitness level, medical considerations, and personal goals. This ensures the programme is both safe and effective.</p>
+            <p><strong>Adaptive Techniques:</strong> Exercises are modified to work with your abilities, not against them. Whether you're managing mobility challenges, chronic conditions, or other disabilities, there's always a way to build strength and improve fitness.</p>
+            <p><strong>Goal-Focused Approach:</strong> Your training goals might include improving daily living activities, building strength for independence, managing pain, or simply feeling more confident in your body. Every programme is designed around what matters most to you.</p>
+            <p><strong>Ongoing Support:</strong> NDIS personal training isn't just about the exercise session – it's about building sustainable habits and providing ongoing encouragement.</p>
+
+            <h3>Real Benefits for Real Lives</h3>
+            <p>Participants often report improvements in:</p>
+            <ul>
+                <li>Daily activities becoming easier</li>
+                <li>Better sleep and energy levels</li>
+                <li>Increased confidence and independence</li>
+                <li>Reduced pain and improved mobility</li>
+                <li>Enhanced mental health and wellbeing</li>
+            </ul>
+
+            <h3>How to Get Started</h3>
+            <p>If you're an NDIS participant interested in personal training, start by discussing it with your support coordinator or planner. Many participants are surprised to learn that fitness support is available through their funding.</p>
+            <p>The key is finding a trainer who understands the NDIS system and, more importantly, understands how to create inclusive, effective fitness programmes.</p>
+            <p>Brisbane has excellent resources for NDIS participants, and personal training can be a powerful tool in your journey towards greater independence and wellbeing.</p>
+        </div>
+    </div>
+
+    <!-- Popover 3 -->
+    <div id="post3" class="popover-overlay" onclick="closePopover('post3')">
+        <div class="popover-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closePopover('post3')">&times;</button>
+            <h2>Why Personalised Training Beats Fitness Trends in 2025</h2>
+            <div class="post-meta">Published: June 19, 2025</div>
+            
+            <p>Every year brings new fitness trends promising to be the "game changer" you've been waiting for. In 2025, we're seeing everything from AI-powered workouts to extreme recovery protocols. But here's the thing – the most effective approach to fitness isn't trendy at all.</p>
+            <p>It's personalised.</p>
+
+            <h3>The Problem with Fitness Trends</h3>
+            <p>Trends are designed to appeal to everyone, which means they're optimised for no one. That viral workout routine your mate swears by? It was created for a general audience, not for your specific body, lifestyle, or goals.</p>
+            <p><strong>One Size Fits None:</strong> Your fitness needs are unique. Your injury history, available time, preferred activities, and physical capabilities are different from everyone else's. Generic programmes can't account for this.</p>
+            <p><strong>Trend Fatigue:</strong> Jumping from trend to trend creates inconsistency – the enemy of real progress. You end up constantly starting over instead of building on previous gains.</p>
+
+            <h3>What Personalised Training Actually Means</h3>
+            <p>Personalised training goes far beyond just adjusting weights or reps. It means:</p>
+            <p><strong>Understanding Your Real Life:</strong> A good trainer considers your work schedule, family commitments, Brisbane's climate, and how fitness fits into your actual lifestyle.</p>
+            <p><strong>Adapting to Your Body:</strong> Everyone responds differently to exercise. Some people build strength quickly but struggle with flexibility. Others excel at endurance but need more recovery time. Personalised training works with your natural tendencies.</p>
+            <p><strong>Evolving Goals:</strong> Your fitness goals change as you progress and as life changes. Personalised training evolves with you, whether you're training for a marathon, recovering from injury, or simply wanting to keep up with your kids.</p>
+            <p><strong>Realistic Expectations:</strong> Trends often promise unrealistic results. Personalised training sets achievable milestones that actually mean something in your life.</p>
+
+            <h3>The 2025 Advantage</h3>
+            <p>In 2025, we have better tools than ever for personalisation – but they're only effective when used by someone who understands your individual needs. Technology can track your progress and preferences, but it takes human expertise to interpret that data and create a programme that works for you.</p>
+
+            <h3>Why This Matters in Brisbane</h3>
+            <p>Living in Brisbane presents unique fitness challenges and opportunities. The climate, outdoor lifestyle, and local culture all play a role in what kind of fitness programme will be sustainable for you long-term.</p>
+            <p>Instead of chasing the latest trend, invest in an approach that's designed specifically for you. That's how you build fitness that lasts – not just until the next trend comes along, but for life.</p>
+            <p>The most revolutionary fitness approach in 2025? The one that's created just for you.</p>
+        </div>
+    </div>
+
+    <script>
+        function openPopover(postId) {
+            document.getElementById(postId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopover(postId) {
+            document.getElementById(postId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close popover with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openPopovers = document.querySelectorAll('.popover-overlay[style*="block"]');
+                openPopovers.forEach(popover => {
+                    popover.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
