@@ -978,6 +978,7 @@ function App() {
     <img src="https://i.imgur.com/3WBbmhh.jpeg" alt="GC-PT Logo" className="h-6 w-6 rounded-full" />
     <p>&copy; 2025 GC-PT Personal Training. All rights reserved. | ABN: 61 574 728 590</p>
   </div>
+   <a href="https://gcpt.life" className="mt-2 text-sm block hover:text-gray-300 transition-colors">gcpt.life</a>
 </div>
         </div>
 </footer>
