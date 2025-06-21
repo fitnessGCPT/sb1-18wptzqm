@@ -136,7 +136,7 @@ const AdminPopover = ({ isOpen, onClose }) => {
                   type="text"
                   value={credentials.username}
                   onChange={(e) => setCredentials({...credentials, username: e.target.value})}
-                  className="w-full px-3 py-2 border border-cyan-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-cyan-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black placeholder-gray-400"
                   required
                 />
               </div>
@@ -149,7 +149,7 @@ const AdminPopover = ({ isOpen, onClose }) => {
                   type="password"
                   value={credentials.password}
                   onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-                  className="w-full px-3 py-2 border border-cyan-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-cyan-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black placeholder-gray-400"
                   required
                 />
               </div>
