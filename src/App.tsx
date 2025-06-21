@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Mail, MapPin, Instagram, Facebook, Dumbbell, Users, Trophy, Smartphone, Star, ArrowRight, CheckCircle, ExternalLink, X } from 'lucide-react';
+import AdminPopover from './components/AdminPopover';
 
 function App() {
   const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ function App() {
   const openPrivacyPolicy = () => setShowPrivacyPolicy(true);
   const closePrivacyPolicy = () => setShowPrivacyPolicy(false);
 
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -945,24 +947,38 @@ function App() {
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#about" className="hover:text-white transition-colors">About Gary</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
-                <li><a href="#app" className="hover:text-white transition-colors">Fitness App</a></li>
-                <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
-                 <li><a href="https://gcpt.life/blog.html" className="hover:text-white transition-colors">Blogs</a></li>
-                <li>
-                  <button
-                    onClick={openPrivacyPolicy}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Privacy Policy
-                  </button>
-                </li>
-              </ul>
-            </div>
+  <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+  <ul className="space-y-2 text-gray-400">
+    <li><a href="#about" className="hover:text-white transition-colors">About Gary</a></li>
+    <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
+    <li><a href="#app" className="hover:text-white transition-colors">Fitness App</a></li>
+    <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
+    <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+    <li><a href="https://gcpt.life/blog.html" className="hover:text-white transition-colors">Blogs</a></li>
+    <li>
+      <button
+        onClick={openPrivacyPolicy}
+        className="hover:text-white transition-colors text-left"
+      >
+        Privacy Policy
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={() => setIsAdminOpen(true)}
+        className="hover:text-white transition-colors text-left"
+      >
+        Admin
+      </button>
+    </li>
+  </ul>
+</div>
+
+            {/* Admin Popover */}
+<AdminPopover 
+  isOpen={isAdminOpen} 
+  onClose={() => setIsAdminOpen(false)} 
+/>
             
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
