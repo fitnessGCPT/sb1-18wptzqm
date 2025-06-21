@@ -70,18 +70,17 @@ const AdminPopover = ({ isOpen, onClose }) => {
     try {
       const token = localStorage.getItem('adminToken');
       
-      // For now, call your existing Cloud Run endpoint
-      // Later we can move this to a Netlify function too
-      const response = await fetch('https://search-console-reporter-218046281466.us-central1.run.app/api/generate-report', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          website: 'gcpt.life',
-          dateRange: 30
-        })
-      });
+      const response = await fetch('/.netlify/functions/generate-report', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    website: 'gcpt.life',
+    dateRange: 30
+  })
+});
 
       const result = await response.json();
 
