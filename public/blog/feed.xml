@@ -1,1 +1,44 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GCPT - Personal Training Blog</title>
+    <description>Personal training insights, tips and updates from GCPT Brisbane</description>
+    <link>https://gcpt.life</link>
+    <atom:link href="https://gcpt.life/feed.xml" rel="self" type="application/rss+xml"/>
+    <language>en-au</language>
+    <lastBuildDate>Thu, 19 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+    <ttl>60</ttl>
+    
+    <item>
+      <title>Why Choose a Personal Trainer Over a Gym Membership?</title>
+      <description><![CDATA[
+        If you're weighing up whether to invest in a personal trainer or stick with a standard gym membership, you're not alone. Many Brisbane residents face this decision when they're serious about getting fit and healthy. Here's why personal training delivers better results than going it alone at the gym.
+      ]]></description>
+      <link>https://gcpt.life/blog/personal-trainer-vs-gym-membership</link>
+      <guid>https://gcpt.life/blog/personal-trainer-vs-gym-membership</guid>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+    </item>
+    
+    <item>
+      <title>Personal Training for NDIS Participants: Creating Inclusive Fitness Goals</title>
+      <description><![CDATA[
+        Fitness should be accessible to everyone, and that's exactly what NDIS funding for personal training makes possible. As an NDIS-registered personal trainer here in Brisbane, discover how transformative proper fitness support can be for participants.
+      ]]></description>
+      <link>https://gcpt.life/blog/ndis-personal-training-brisbane</link>
+      <guid>https://gcpt.life/blog/ndis-personal-training-brisbane</guid>
+      <pubDate>Thu, 19 Jun 2025 01:00:00 +0000</pubDate>
+    </item>
+    
+    <item>
+      <title>Why Personalised Training Beats Fitness Trends in 2025</title>
+      <description><![CDATA[
+        Every year brings new fitness trends promising to be the "game changer" you've been waiting for. In 2025, we're seeing everything from AI-powered workouts to extreme recovery protocols. But here's the thing – the most effective approach to fitness isn't trendy at all. It's personalised.
+      ]]></description>
+      <link>https://gcpt.life/blog/personalised-training-vs-fitness-trends-2025</link>
+      <guid>https://gcpt.life/blog/personalised-training-vs-fitness-trends-2025</guid>
+      <pubDate>Thu, 19 Jun 2025 02:00:00 +0000</pubDate>
+    </item>
+    
+  </channel>
+</rss>
