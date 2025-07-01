@@ -498,7 +498,7 @@ function App() {
                     <span>Full Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"  onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
+                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"  onClick={() => window.open('https://www.trainerize.me/checkout/gcpt4/Gary.Collins?planGUID=db7e8489d8b843e9a623d9e8575baf65', '_blank')}>
                   Choose Plan
                 </button>
               </div>
@@ -531,7 +531,7 @@ function App() {
                     <span>Full Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-900 text-cyan-300 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors"onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
+                <button className="w-full bg-blue-900 text-cyan-300 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors"onClick={() => window.open('https://www.trainerize.me/checkout/gcpt4/Gary.Collins?planGUID=ff5c02bbff104842b51727cd0ee7cfbb', '_blank')}>
                   Choose Plan
                 </button>
               </div>
@@ -562,7 +562,7 @@ function App() {
                     <span>Ongoing Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
+                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"onClick={() => window.open('https://www.trainerize.me/checkout/gcpt4/Gary.Collins?planGUID=4f3f388fbe034431bc8945ea82bc9117', '_blank')}>
                   Choose Plan
                 </button>
               </div>
@@ -596,7 +596,7 @@ function App() {
                     <span>Regular Support</span>
                   </li>
                 </ul>
-                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"onClick={() => window.open('https://www.trainerize.me/profile/gcpt4/Gary.Collins/', '_blank')}>
+                <button className="w-full bg-yellow-400 text-blue-800 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"onClick={() => window.open('https://www.trainerize.me/checkout/gcpt4/Gary.Collins?planGUID=93e71a517a1f4a1c95a335339f483ed9', '_blank')}>
                   Get Started
                 </button>
               </div>
