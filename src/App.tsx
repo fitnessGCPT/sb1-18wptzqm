@@ -179,7 +179,7 @@ function App() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <img 
-                src="public/GC_website_image.jpg"
+                src="/GC_website_image.jpg"
                 alt="Gary Collins - Personal Trainer"
                 className="w-full h-96 object-cover rounded-2xl shadow-xl"
               />
