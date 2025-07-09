@@ -179,9 +179,12 @@ function App() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <img 
-                src="/GC_website_image.jpg" style="object-fit: cover; object-position: center top;" width="800" height="600">
+                src="/GC_website_image.jpg"
                 alt="Gary Collins - Personal Trainer"
                 className="w-full h-96 object-cover rounded-2xl shadow-xl"
+                  style={{objectFit: 'cover', objectPosition: 'center top'}}
+  width="800" 
+  height="600"
               />
             </div>
             <div>
