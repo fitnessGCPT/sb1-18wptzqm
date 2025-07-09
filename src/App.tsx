@@ -182,7 +182,7 @@ function App() {
                 src="/GC_website_image.jpg"
                 alt="Gary Collins - Personal Trainer"
                 className="w-full h-96 object-cover rounded-2xl shadow-xl"
-                  style={{objectFit: 'cover', objectPosition: 'center 60%'}}
+                  style={{objectFit: 'cover', objectPosition: 'center 40%'}}
   width="800" 
   height="600"
               />
