@@ -316,7 +316,7 @@
       gtag('js', new Date());
       gtag('config', 'GA_MEASUREMENT_ID');
     </script>
-    <script type="text/javascript">
+  <script type="text/javascript">
   (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
@@ -328,7 +328,9 @@
             url: "https://runtime-api.voiceflow.com"
           },
           assistant: {
+            // CSS to disable typing indicators
             stylesheet: 'data:text/css;base64,' + btoa(`
+              /* Hide the input field completely */
               .vfrc-input,
               .vfrc-chat-input,
               [class*="input" i],
@@ -336,23 +338,47 @@
               input[type="text"] {
                 display: none !important;
               }
+              
+              /* Hide typing indicators */
               .vfrc-typing-indicator,
               .vfrc-typing-dots,
               .vfrc-message--typing,
               [class*="typing" i] {
                 display: none !important;
               }
+              
+              /* Hide send button */
               .vfrc-send-button,
               [class*="send" i] {
                 display: none !important;
               }
+              
+              /* Make messages appear instantly */
               .vfrc-message {
                 animation-duration: 0.1s !important;
                 transition-duration: 0.1s !important;
               }
+              
+              /* Style proactive messages - yellow with black outline */
+              .vfrc-proactive-message,
+              .vfrc-system-response .vfrc-message,
+              .vfrc-message--system {
+                background-color: #fbbf24 !important;
+                border: 1px solid #000000 !important;
+                color: #1e40af !important;
+                font-weight: 500 !important;
+              }
+              
+              /* Target all system/bot messages for proactive styling */
+              .vfrc-message:not(.vfrc-message--user) {
+                background-color: #fbbf24 !important;
+                border: 1px solid #000000 !important;
+                color: #1e40af !important;
+              }
             `)
           }
         }).then(() => {
+          // Wait 3 seconds after page load, then send proactive messages
           setTimeout(() => {
             window.voiceflow.chat.proactive.clear();
             window.voiceflow.chat.proactive.push(
