@@ -24,66 +24,68 @@ function App() {
 
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
-// Load Voiceflow chat widget
-  useEffect(() => {
-    const loadVoiceflowWidget = () => {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.onload = function() {
-        if (window.voiceflow) {
-          window.voiceflow.chat.load({
-            verify: { projectID: '6891cd5ae7620bd8c645e14a' },
-            url: 'https://general-runtime.voiceflow.com',
-            versionID: 'production',
-            voice: {
-              url: "https://runtime-api.voiceflow.com"
-            },
-            assistant: {
-              // CSS to disable typing indicators
-              stylesheet: 'data:text/css;base64,' + btoa(`
-                .vfrc-typing-indicator,
-                .vfrc-typing-dots,
-                .vfrc-message--typing,
-                [class*="typing" i] {
-                  display: none !important;
-                }
-                
-                .vfrc-message {
-                  animation-duration: 0.1s !important;
-                  transition-duration: 0.1s !important;
-                }
-              `)
-            }
-          }).then(() => {
-            // Wait 3 seconds after page load, then send proactive messages
-            setTimeout(() => {
-              window.voiceflow.chat.proactive.clear();
-              window.voiceflow.chat.proactive.push(
-                { type: 'text', payload: { message: 'Welcome to GCPT' } },
-                { type: 'text', payload: { message: 'Feel free to explore the site.' } },
-                { type: 'text', payload: { message: 'Find our growing list of resources in the chat' } }
-              );
-            }, 3000);
-          });
-        }
-      };
-      script.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
-      
-      const firstScript = document.getElementsByTagName('script')[0];
-      firstScript.parentNode.insertBefore(script, firstScript);
-    };
 
-    // Load the widget when component mounts
-    loadVoiceflowWidget();
-
-    // Cleanup function to remove script if component unmounts
-    return () => {
-      const existingScript = document.querySelector('script[src="https://cdn.voiceflow.com/widget-next/bundle.mjs"]');
-      if (existingScript) {
-        existingScript.remove();
+<script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '6891cd5ae7620bd8c645e14a' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          },
+          assistant: {
+            // CSS to disable typing indicators
+            stylesheet: 'data:text/css;base64,' + btoa(`
+              /* Hide the input field completely */
+              .vfrc-input,
+              .vfrc-chat-input,
+              [class*="input" i],
+              textarea,
+              input[type="text"] {
+                display: none !important;
+              }
+              
+              /* Hide typing indicators */
+              .vfrc-typing-indicator,
+              .vfrc-typing-dots,
+              .vfrc-message--typing,
+              [class*="typing" i] {
+                display: none !important;
+              }
+              
+              /* Hide send button */
+              .vfrc-send-button,
+              [class*="send" i] {
+                display: none !important;
+              }
+              
+              /* Make messages appear instantly */
+              .vfrc-message {
+                animation-duration: 0.1s !important;
+                transition-duration: 0.1s !important;
+              }
+            `)
+          }
+        }).then(() => {
+          // Wait 3 seconds after page load, then send proactive messages
+          setTimeout(() => {
+            window.voiceflow.chat.proactive.clear();
+            window.voiceflow.chat.proactive.push(
+              { type: 'text', payload: { message: 'Welcome to GCPT' } },
+              { type: 'text', payload: { message: 'Feel free to explore the site.' } },
+              { type: 'text', payload: { message: 'Find our growing list of resources in the chat' } }
+            );
+          }, 3000);
+        });
       }
-    };
-  }, []);
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
+      v.type = "text/javascript"; 
+      s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
   
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
