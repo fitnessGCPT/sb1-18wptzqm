@@ -359,7 +359,7 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* Aggressively target ALL proactive message elements */
+              /* Target proactive message elements - removed background property */
               .vfrc-proactive-message,
               .vfrc-proactive-message div,
               .vfrc-notification,
@@ -374,22 +374,19 @@
               [class*="proactive" i],
               [class*="bubble" i] {
                 background-color: #fbbf24 !important;
-                background: #fbbf24 !important;
                 border: 1px solid #000000 !important;
-                color: #1e40af !important;
+                color: #000000 !important;
                 font-weight: 500 !important;
                 border-radius: 16px !important;
                 padding: 12px 16px !important;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
               }
               
-              /* Target by position - elements above the chat widget */
-              div[style*="position: fixed"] div[style*="background"],
-              div[style*="position: absolute"] div[style*="background"] {
-                background-color: #fbbf24 !important;
-                background: #fbbf24 !important;
-                border: 1px solid #000000 !important;
-                color: #1e40af !important;
+              /* Ensure text is visible - black text on yellow background */
+              .vfrc-proactive-message *,
+              .vfrc-notification *,
+              .vfrc-bubble * {
+                color: #000000 !important;
               }
             `)
           }
