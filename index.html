@@ -359,23 +359,10 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* CONTROLLED NUCLEAR: Style everything but exclude main content areas */
-              body *:not(header):not(nav):not(main):not(article):not(section):not(.container):not([class*="content"]):not([id*="content"]) {
+              /* NUCLEAR OPTION: Turn everything yellow so Voiceflow AI can identify the component */
+              * {
                 background-color: #fbbf24 !important;
                 color: #000000 !important;
-              }
-              
-              /* Reset specific areas back to normal */
-              header, header *,
-              nav, nav *,
-              main, main *,
-              article, article *,
-              section, section *,
-              .container, .container *,
-              [class*="content"], [class*="content"] *,
-              [id*="content"], [id*="content"] * {
-                background-color: initial !important;
-                color: initial !important;
               }
             `)
           }
