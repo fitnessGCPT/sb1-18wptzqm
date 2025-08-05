@@ -359,13 +359,10 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* TEST 3: Try common Voiceflow class patterns */
-              [class*="vfrc-"],
-              [class*="proactive"],
-              [class*="notification"],
-              [class*="bubble"],
-              [class*="tooltip"],
-              [class*="popup"] {
+              /* TEST 4: Target elements that might NOT have classes */
+              div:not([class]),
+              span:not([class]),
+              p:not([class]) {
                 background-color: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #000000 !important;
