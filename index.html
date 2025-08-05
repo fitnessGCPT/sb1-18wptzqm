@@ -359,13 +359,15 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* Style proactive notification bubbles ABOVE closed widget */
+              /* Style the actual proactive message bubbles (replace white with yellow) */
               .vfrc-proactive-message,
+              .vfrc-proactive-message > *,
               .vfrc-notification,
               .vfrc-bubble,
-              [class*="proactive" i],
-              [class*="notification" i] {
+              .vfrc-widget-notification,
+              .vfrc-notification-bubble {
                 background-color: #fbbf24 !important;
+                background: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #1e40af !important;
                 font-weight: 500 !important;
@@ -374,20 +376,13 @@
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
               }
               
-              /* Target the notification container above widget */
-              .vfrc-widget-notification,
-              .vfrc-notification-bubble {
-                background-color: #fbbf24 !important;
-                border: 1px solid #000000 !important;
+              /* Override any nested white backgrounds in proactive messages */
+              .vfrc-proactive-message *,
+              .vfrc-notification *,
+              .vfrc-bubble * {
+                background-color: transparent !important;
+                background: transparent !important;
                 color: #1e40af !important;
-              }
-              
-              /* Style system responses inside chat (when opened) */
-              .vfrc-system-response .vfrc-message {
-                background-color: #fbbf24 !important;
-                border: 1px solid #000000 !important;
-                color: #1e40af !important;
-                font-weight: 500 !important;
               }
             `)
           }
