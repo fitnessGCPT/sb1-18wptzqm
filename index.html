@@ -359,10 +359,13 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* NUCLEAR OPTION: Turn everything yellow so Voiceflow AI can identify the component */
-              * {
+              /* Try basic proactive styling */
+              .vfrc-proactive-message {
                 background-color: #fbbf24 !important;
+                border: 1px solid #000000 !important;
                 color: #000000 !important;
+                border-radius: 16px !important;
+                padding: 12px 16px !important;
               }
             `)
           }
@@ -371,10 +374,59 @@
           setTimeout(() => {
             window.voiceflow.chat.proactive.clear();
             window.voiceflow.chat.proactive.push(
-              { type: 'text', payload: { message: 'Welcome to GCPT' } },
-              { type: 'text', payload: { message: 'Feel free to explore the site.' } },
-              { type: 'text', payload: { message: 'Find our growing list of resources in the chat' } }
+              { 
+                type: 'text', 
+                payload: { 
+                  message: 'Welcome to GCPT',
+                  // Try adding style directly to the message
+                  style: {
+                    backgroundColor: '#fbbf24',
+                    border: '1px solid #000000',
+                    color: '#000000',
+                    borderRadius: '16px',
+                    padding: '12px 16px'
+                  }
+                } 
+              },
+              { 
+                type: 'text', 
+                payload: { 
+                  message: 'Feel free to explore the site.',
+                  style: {
+                    backgroundColor: '#fbbf24',
+                    border: '1px solid #000000',
+                    color: '#000000',
+                    borderRadius: '16px',
+                    padding: '12px 16px'
+                  }
+                } 
+              },
+              { 
+                type: 'text', 
+                payload: { 
+                  message: 'Find our growing list of resources in the chat',
+                  style: {
+                    backgroundColor: '#fbbf24',
+                    border: '1px solid #000000',
+                    color: '#000000',
+                    borderRadius: '16px',
+                    padding: '12px 16px'
+                  }
+                } 
+              }
             );
+            
+            // Apply styles after bubbles are created
+            setTimeout(() => {
+              const proactiveBubbles = document.querySelectorAll('[data-testid*="proactive"], [class*="proactive"], .vfrc-proactive-message');
+              proactiveBubbles.forEach(bubble => {
+                bubble.style.backgroundColor = '#fbbf24';
+                bubble.style.border = '1px solid #000000';
+                bubble.style.color = '#000000';
+                bubble.style.borderRadius = '16px';
+                bubble.style.padding = '12px 16px';
+              });
+            }, 500);
           }, 3000);
         });
       }
