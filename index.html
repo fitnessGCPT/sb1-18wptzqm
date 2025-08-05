@@ -359,15 +359,20 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* TEST 4: Target elements that might NOT have classes */
-              div:not([class]),
-              span:not([class]),
-              p:not([class]) {
+              /* TARGETED NUCLEAR: Only elements positioned fixed/absolute (like chat widgets) */
+              [style*="position: fixed"] *,
+              [style*="position: absolute"] * {
                 background-color: #fbbf24 !important;
-                border: 1px solid #000000 !important;
                 color: #000000 !important;
-                border-radius: 16px !important;
-                padding: 12px 16px !important;
+              }
+              
+              /* Reset the main chat widget back to normal */
+              [style*="position: fixed"] .vfrc-launcher,
+              [style*="position: fixed"] .vfrc-widget,
+              [style*="position: absolute"] .vfrc-launcher,
+              [style*="position: absolute"] .vfrc-widget {
+                background-color: initial !important;
+                color: initial !important;
               }
             `)
           }
