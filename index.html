@@ -359,13 +359,20 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* Style the actual proactive message bubbles (replace white with yellow) */
+              /* Aggressively target ALL proactive message elements */
               .vfrc-proactive-message,
-              .vfrc-proactive-message > *,
+              .vfrc-proactive-message div,
               .vfrc-notification,
+              .vfrc-notification div,
               .vfrc-bubble,
+              .vfrc-bubble div,
               .vfrc-widget-notification,
-              .vfrc-notification-bubble {
+              .vfrc-widget-notification div,
+              [data-testid*="notification"],
+              [data-testid*="proactive"],
+              [class*="notification" i],
+              [class*="proactive" i],
+              [class*="bubble" i] {
                 background-color: #fbbf24 !important;
                 background: #fbbf24 !important;
                 border: 1px solid #000000 !important;
@@ -376,12 +383,12 @@
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
               }
               
-              /* Override any nested white backgrounds in proactive messages */
-              .vfrc-proactive-message *,
-              .vfrc-notification *,
-              .vfrc-bubble * {
-                background-color: transparent !important;
-                background: transparent !important;
+              /* Target by position - elements above the chat widget */
+              div[style*="position: fixed"] div[style*="background"],
+              div[style*="position: absolute"] div[style*="background"] {
+                background-color: #fbbf24 !important;
+                background: #fbbf24 !important;
+                border: 1px solid #000000 !important;
                 color: #1e40af !important;
               }
             `)
