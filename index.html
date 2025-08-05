@@ -359,11 +359,14 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* TEST 1: Try targeting inline white backgrounds only */
-              div[style*="background-color: white"],
-              div[style*="background-color: #fff"],
-              div[style*="background-color: #ffffff"] {
-                background-color: #fbbf24 !important;
+              /* TEST 2: Try targeting 'background: white' styles */
+              div[style*="background: white"],
+              div[style*="background: #fff"],
+              div[style*="background: #ffffff"],
+              [style*="background: white"],
+              [style*="background: #fff"],
+              [style*="background: #ffffff"] {
+                background: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #000000 !important;
                 border-radius: 16px !important;
