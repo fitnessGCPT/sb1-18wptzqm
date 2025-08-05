@@ -359,20 +359,14 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* Target proactive message elements - removed background property */
-              .vfrc-proactive-message,
-              .vfrc-proactive-message div,
-              .vfrc-notification,
-              .vfrc-notification div,
-              .vfrc-bubble,
-              .vfrc-bubble div,
-              .vfrc-widget-notification,
-              .vfrc-widget-notification div,
-              [data-testid*="notification"],
-              [data-testid*="proactive"],
-              [class*="notification" i],
-              [class*="proactive" i],
-              [class*="bubble" i] {
+              /* Target the actual proactive message bubbles */
+              .vfrc-proactive-message .vfrc-message,
+              .vfrc-proactive-message .vfrc-system-response,
+              .vfrc-proactive-message .vfrc-message-content,
+              .vfrc-notification .vfrc-message,
+              .vfrc-notification .vfrc-system-response,
+              .vfrc-bubble .vfrc-message,
+              .vfrc-bubble .vfrc-system-response {
                 background-color: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #000000 !important;
@@ -382,10 +376,16 @@
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
               }
               
-              /* Ensure text is visible - black text on yellow background */
-              .vfrc-proactive-message *,
-              .vfrc-notification *,
-              .vfrc-bubble * {
+              /* Alternative approach - target message bubbles more specifically */
+              .vfrc-system-response .vfrc-message {
+                background-color: #fbbf24 !important;
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+              }
+              
+              /* Ensure text content is black */
+              .vfrc-system-response .vfrc-message *,
+              .vfrc-proactive-message .vfrc-message * {
                 color: #000000 !important;
               }
             `)
