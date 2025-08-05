@@ -359,37 +359,15 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* BRUTE FORCE: Target ANY white background element that could be a bubble */
+              /* TEST 1: Try targeting inline white backgrounds only */
               div[style*="background-color: white"],
               div[style*="background-color: #fff"],
-              div[style*="background-color: #ffffff"],
-              div[style*="background: white"],
-              div[style*="background: #fff"],
-              div[style*="background: #ffffff"],
-              [style*="background-color: white"],
-              [style*="background-color: #fff"],
-              [style*="background-color: #ffffff"],
-              [style*="background: white"],
-              [style*="background: #fff"],
-              [style*="background: #ffffff"] {
+              div[style*="background-color: #ffffff"] {
                 background-color: #fbbf24 !important;
-                background: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #000000 !important;
-              }
-              
-              /* Target ALL elements with white/light backgrounds */
-              * {
-                background-color: #fbbf24 !important;
-                color: #000000 !important;
-              }
-              
-              /* Reset the chat widget itself to default */
-              .vfrc-widget,
-              .vfrc-chat,
-              .vfrc-launcher {
-                background-color: initial !important;
-                color: initial !important;
+                border-radius: 16px !important;
+                padding: 12px 16px !important;
               }
             `)
           }
