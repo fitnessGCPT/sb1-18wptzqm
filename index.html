@@ -316,7 +316,7 @@
       gtag('js', new Date());
       gtag('config', 'GA_MEASUREMENT_ID');
     </script>
-  <script type="text/javascript">
+ <script type="text/javascript">
   (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
@@ -360,17 +360,25 @@
               }
               
               /* Style proactive messages - yellow with black outline */
-              .vfrc-proactive-message,
-              .vfrc-system-response .vfrc-message,
-              .vfrc-message--system {
+              .vfrc-proactive-message {
+                background-color: #fbbf24 !important;
+                border: 1px solid #000000 !important;
+                color: #1e40af !important;
+                font-weight: 500 !important;
+                border-radius: 16px !important;
+                padding: 16px !important;
+              }
+              
+              /* Style system responses (agent messages) */
+              .vfrc-system-response {
                 background-color: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #1e40af !important;
                 font-weight: 500 !important;
               }
               
-              /* Target all system/bot messages for proactive styling */
-              .vfrc-message:not(.vfrc-message--user) {
+              /* Ensure all bot messages get the yellow styling */
+              .vfrc-system-response .vfrc-message {
                 background-color: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #1e40af !important;
