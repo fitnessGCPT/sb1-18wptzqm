@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mental Side of Getting Fit in Brisbane | Gary Collins Personal Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8fafc;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .gary-intro {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .gary-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #fbbf24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #1e40af;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .gary-info h2 {
+            color: #1e40af;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .gary-info p {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .credential {
+            background: #fbbf24;
+            color: #1e40af;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .intro-text {
+            font-size: 1.2em;
+            color: #4b5563;
+            margin-bottom: 40px;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .tip {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f1f5f9;
+            border-left: 5px solid #fbbf24;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .tip h3 {
+            color: #1e40af;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tip-number {
+            background: #fbbf24;
+            color: #1e40af;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .tip p {
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+        
+        .brisbane-specific {
+            background: #eff6ff;
+            border: 2px solid #3b82f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .brisbane-specific h4 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e40af;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .cta-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: #1e40af;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #1e40af;
+            border: 2px solid #1e40af;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .stat {
+            color: #1e40af;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .gary-intro {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .gary-photo {
+                width: 120px;
+                height: 120px;
+                font-size: 36px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The Mental Side of Getting Fit in Brisbane</h1>
+            <p>Why 80% of fitness goals fail mentally (and how to be in the 20% that succeed)</p>
+        </div>
+
+        <div class="gary-intro">
+            <div class="gary-photo">GC</div>
+            <div class="gary-info">
+                <h2>Meet Gary Collins</h2>
+                <p><strong>20+ years</strong> helping Brisbane residents overcome the mental barriers that sabotage fitness success.</p>
+                <p><strong>500+ clients</strong> transformed through psychology-focused personal training.</p>
+                <p>Certified in mental health, NDIS support, and injury rehabilitation.</p>
+                
+                <div class="credentials">
+                    <span class="credential">Mental Health Focus</span>
+                    <span class="credential">NDIS Certified</span>
+                    <span class="credential">Cert 3 & 4</span>
+                    <span class="credential">20+ Years Experience</span>
+                    <span class="credential">Nutrition Specialist</span>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number">20+</span>
+                        Years Experience
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        Clients Transformed
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        Satisfaction Rate
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="intro-text">
+                "Your body achieves what your mind believes. After 20 years of training Brisbane residents, I've learned that sustainable fitness is 80% mental, 20% physical."
+                <br><strong>- Gary Collins</strong>
+            </div>
+
+            <div class="tip">
+                <h3><span class="tip-number">1</span>Start with Your Identity, Not Your Goals</h3>
+                <p>Instead of saying "I want to lose 20kg," start thinking "I'm someone who takes care of their body." This identity shift changes everything about how you approach fitness. When you see yourself as a healthy person, healthy choices become automatic.</p>
+                
+                <div class="brisbane-specific">
+                    <h4>Brisbane Application:</h4>
+                    <p>Join the active Brisbane community - River Walk joggers, South Bank cyclists, and Mt. Coot-tha hikers all share this identity. You belong with them.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <h3><span class="tip-number">2</span>Embrace Brisbane's Climate Advantage</h3>
+                <p>Brisbane's year-round sunshine is your secret weapon for mood and motivation. Vitamin D naturally boosts serotonin, making you feel more positive about exercise. But here's the mental trick: schedule outdoor activities during your usual "low energy" times.</p>
+                
+                <div class="brisbane-specific">
+                    <h4>Brisbane Psychology Hack:</h4>
+                    <p>Morning person? Hit the river at 6am. Night owl? City Botanic Gardens at sunset. Evening beach walks at Sandgate. Work WITH your natural rhythms, not against them.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <h3><span class="tip-number">3</span>Create "Failure-Proof" Habits</h3>
+                <p>The biggest mental mistake? Setting habits you can fail at. Instead of "I'll work out for 1 hour daily," try "I'll put on my gym shoes daily." Success builds momentum, and momentum builds confidence. Small wins create unstoppable psychology.</p>
+                
+                <div class="brisbane-specific">
+                    <h4>Brisbane-Specific Habits:</h4>
+                    <p>Park one stop early and walk to work through the CBD. Take stairs at Queen Street Mall. Walk the Story Bridge on weekends. Make fitness part of your Brisbane lifestyle, not separate from it.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <h3><span class="tip-number">4</span>Use Social Accountability (The Brisbane Way)</h3>
+                <p>Brisbane's friendly culture is perfect for fitness accountability. Queenslanders naturally support each other - use this! The fear of letting others down is often stronger than personal motivation, especially during tough times.</p>
+                
+                <div class="brisbane-specific">
+                    <h4>Local Accountability Ideas:</h4>
+                    <p>Join Brisbane parkrun (free, every Saturday). Find a gym buddy in your suburb. Join local Facebook fitness groups. Book group training sessions - you'll show up because others are counting on you.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <h3><span class="tip-number">5</span>Reframe Setbacks as Data, Not Failures</h3>
+                <p>Here's what 20 years of training has taught me: everyone has bad days, missed workouts, and diet slip-ups. Champions don't avoid setbacks - they learn from them faster. Each "failure" is just information about what doesn't work for your unique situation.</p>
+                
+                <div class="brisbane-specific">
+                    <h4>Brisbane Reality Check:</h4>
+                    <p>Humid summer days affect energy levels. Wet season disrupts outdoor routines. School holidays change family schedules. Plan for Brisbane's seasonal changes instead of fighting them.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Master Your Fitness Psychology?</h2>
+            <p>Gary combines 20+ years of experience with proven psychological techniques to help you build unshakeable fitness confidence.</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Book Your Session</a>
+                <a href="#" class="btn btn-secondary">Explore Training Options</a>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 1em;">
+                📍 Servicing Redbank Plains | 📱 Online coaching available | 🎯 NDIS approved
+            </p>
+        </div>
+    </div>
+</body>
+</html>
