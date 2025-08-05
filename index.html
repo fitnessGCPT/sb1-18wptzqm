@@ -316,7 +316,7 @@
       gtag('js', new Date());
       gtag('config', 'GA_MEASUREMENT_ID');
     </script>
- <script type="text/javascript">
+<script type="text/javascript">
   (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
@@ -359,29 +359,35 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* Style proactive messages - yellow with black outline */
-              .vfrc-proactive-message {
+              /* Style proactive notification bubbles ABOVE closed widget */
+              .vfrc-proactive-message,
+              .vfrc-notification,
+              .vfrc-bubble,
+              [class*="proactive" i],
+              [class*="notification" i] {
                 background-color: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #1e40af !important;
                 font-weight: 500 !important;
                 border-radius: 16px !important;
-                padding: 16px !important;
+                padding: 12px 16px !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
               }
               
-              /* Style system responses (agent messages) */
-              .vfrc-system-response {
+              /* Target the notification container above widget */
+              .vfrc-widget-notification,
+              .vfrc-notification-bubble {
                 background-color: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #1e40af !important;
-                font-weight: 500 !important;
               }
               
-              /* Ensure all bot messages get the yellow styling */
+              /* Style system responses inside chat (when opened) */
               .vfrc-system-response .vfrc-message {
                 background-color: #fbbf24 !important;
                 border: 1px solid #000000 !important;
                 color: #1e40af !important;
+                font-weight: 500 !important;
               }
             `)
           }
