@@ -359,18 +359,21 @@
                 transition-duration: 0.1s !important;
               }
               
-              /* TARGETED NUCLEAR: Only elements positioned fixed/absolute (like chat widgets) */
-              [style*="position: fixed"] *,
-              [style*="position: absolute"] * {
+              /* CONTROLLED NUCLEAR: Style everything but exclude main content areas */
+              body *:not(header):not(nav):not(main):not(article):not(section):not(.container):not([class*="content"]):not([id*="content"]) {
                 background-color: #fbbf24 !important;
                 color: #000000 !important;
               }
               
-              /* Reset the main chat widget back to normal */
-              [style*="position: fixed"] .vfrc-launcher,
-              [style*="position: fixed"] .vfrc-widget,
-              [style*="position: absolute"] .vfrc-launcher,
-              [style*="position: absolute"] .vfrc-widget {
+              /* Reset specific areas back to normal */
+              header, header *,
+              nav, nav *,
+              main, main *,
+              article, article *,
+              section, section *,
+              .container, .container *,
+              [class*="content"], [class*="content"] *,
+              [id*="content"], [id*="content"] * {
                 background-color: initial !important;
                 color: initial !important;
               }
