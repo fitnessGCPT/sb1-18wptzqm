@@ -365,18 +365,17 @@
             </div>
         </div>
 
-        <div class="cta-section">
-            <h2>Ready to Master Your Fitness Psychology?</h2>
-            <p>Gary combines 20+ years of experience with proven psychological techniques to help you build unshakeable fitness confidence.</p>
-            
-           <div class="cta-buttons">
+    <div class="cta-buttons">
     <a href="#" class="btn btn-primary" onclick="navigateToSection('contact')">Book Your Session</a>
     <a href="#" class="btn btn-secondary" onclick="navigateToSection('pricing')">Explore Training Options</a>
 </div>
 
 <script>
 function navigateToSection(sectionId) {
-    window.location.href = `https://gcpt.life/#${sectionId}`;
+    // Store the section we want to scroll to
+    sessionStorage.setItem('scrollToSection', sectionId);
+    // Navigate to the main page
+    window.location.href = 'https://gcpt.life/';
 }
 </script>
             
