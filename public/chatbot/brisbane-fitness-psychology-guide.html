@@ -56,18 +56,21 @@
         }
         
         .gary-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: #fbbf24;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: #1e40af;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.gary-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
         
         .gary-info h2 {
             color: #1e40af;
@@ -268,7 +271,12 @@
         </div>
 
         <div class="gary-intro">
-            <div class="gary-photo">GC</div>
+           <div class="gary-photo">
+  <img 
+    src="/GC_website_image.jpg"
+    alt="Gary Collins - Personal Trainer"
+  />
+</div>
             <div class="gary-info">
                 <h2>Meet Gary Collins</h2>
                 <p><strong>20+ years</strong> helping Brisbane residents overcome the mental barriers that sabotage fitness success.</p>
