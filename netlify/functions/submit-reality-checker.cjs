@@ -45,31 +45,31 @@ exports.handler = async (event, context) => {
       throw new Error('Airtable configuration missing');
     }
 
-    // Prepare data for Airtable
+    // Prepare data for Airtable (all as strings to avoid field type issues)
     const airtableData = {
       fields: {
-        'Name': name,
-        'Email': email,
-        'Phone': phone,
+        'Name': name || '',
+        'Email': email || '',
+        'Phone': phone || '',
         'Source': 'Fitness Goal Reality Checker',
         'Date Submitted': new Date().toISOString(),
         'Status': 'New Lead',
-        // Personal Info
-        'Age': age ? parseInt(age) : null,
-        'Gender': gender || null,
-        'Height (cm)': height ? parseFloat(height) : null,
-        'Activity Level': activityLevel || null,
-        // Goal Data
-        'Current Weight (kg)': currentWeight ? parseFloat(currentWeight) : null,
-        'Goal Weight (kg)': goalWeight ? parseFloat(goalWeight) : null,
-        'Timeline (weeks)': timeline ? parseInt(timeline) : null,
-        'Weight Change (kg)': (currentWeight && goalWeight) ? parseFloat((goalWeight - currentWeight).toFixed(1)) : null,
-        // Calculated Results
-        'BMR': bmr ? Math.round(bmr) : null,
-        'TDEE': tdee ? Math.round(tdee) : null,
-        'Target Calories': targetCalories ? Math.round(targetCalories) : null,
-        'Goal Category': goalCategory || null,
-        'Weekly Rate (kg)': weeklyRate ? parseFloat(weeklyRate.toFixed(2)) : null
+        // Personal Info (as strings)
+        'Age': age ? age.toString() : '',
+        'Gender': gender || '',
+        'Height (cm)': height ? height.toString() : '',
+        'Activity Level': activityLevel || '',
+        // Goal Data (as strings)
+        'Current Weight (kg)': currentWeight ? currentWeight.toString() : '',
+        'Goal Weight (kg)': goalWeight ? goalWeight.toString() : '',
+        'Timeline (weeks)': timeline ? timeline.toString() : '',
+        'Weight Change (kg)': (currentWeight && goalWeight) ? (goalWeight - currentWeight).toFixed(1) : '',
+        // Calculated Results (as strings)
+        'BMR': bmr ? Math.round(bmr).toString() : '',
+        'TDEE': tdee ? Math.round(tdee).toString() : '',
+        'Target Calories': targetCalories ? Math.round(targetCalories).toString() : '',
+        'Goal Category': goalCategory || '',
+        'Weekly Rate (kg)': weeklyRate ? weeklyRate.toFixed(2) : ''
       }
     };
 
