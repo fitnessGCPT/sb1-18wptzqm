@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Goal Reality Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            color: #2c3e50;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .return-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: #2c3e50;
+            border: 2px solid #2c3e50;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .return-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .form-section {
+            padding: 40px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #2980b9;
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1);
+        }
+        
+        .unit {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1.3em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(41, 128, 185, 0.3);
+        }
+        
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border-left: 5px solid #2980b9;
+        }
+        
+        .result-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .result-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .result-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .realistic { color: #27ae60; }
+        .aggressive { color: #e74c3c; }
+        .conservative { color: #f39c12; }
+        
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .warning h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .warning p {
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .lead-capture {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .lead-capture h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .lead-capture p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        
+        .capture-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .capture-form input {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        
+        .capture-btn {
+            background: #f1c40f;
+            color: #2c3e50;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .capture-btn:hover {
+            background: #f39c12;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="return-btn">← Back to GCPT</a>
+            <h1>🎯 GCPT Fitness Goal Reality Checker</h1>
+            <p>Get science-based insights into your fitness goals</p>
+        </div>
+        
+        <div class="form-section">
+            <form id="fitnessForm">
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="currentWeight">Current Weight</label>
+                            <input type="number" id="currentWeight" step="0.1" required>
+                            <div class="unit">kilograms</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goalWeight">Goal Weight</label>
+                            <input type="number" id="goalWeight" step="0.1" required>
+                            <div class="unit">kilograms</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timeline">Desired Timeline</label>
+                            <input type="number" id="timeline" min="1" required>
+                            <div class="unit">weeks</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="height">Height</label>
+                            <input type="number" id="height" step="0.1" required>
+                            <div class="unit">centimetres</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" min="16" max="80" required>
+                            <div class="unit">years</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="activity">Current Activity Level</label>
+                            <select id="activity" required>
+                                <option value="">Select activity level</option>
+                                <option value="1.2">Sedentary (desk job, no exercise)</option>
+                                <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
+                                <option value="1.55">Moderately active (moderate exercise 3-5 days/week)</option>
+                                <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
+                                <option value="1.9">Extremely active (very hard exercise, physical job)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="calculate-btn">📊 Check My Goal Reality</button>
+            </form>
+            
+            <div id="results" class="results">
+                <div class="result-item">
+                    <h3>Your Goal Analysis</h3>
+                    <div id="goalAnalysis"></div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>Daily Calorie Requirements</h3>
+                    <div id="calorieInfo"></div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>Realistic Timeline</h3>
+                    <div id="timelineInfo"></div>
+                </div>
+                
+                <div class="warning">
+                    <h4>⚠️ Important Disclaimer</h4>
+                    <p>These calculations are based on general formulas and don't account for your unique metabolism, health conditions, body composition, or lifestyle factors. Individual results can vary significantly based on genetics, medical history, stress levels, sleep quality, and many other personal factors.</p>
+                </div>
+                
+                <div class="lead-capture">
+                    <h3>🔍 Want to Know How These Numbers Actually Apply to YOU?</h3>
+                    <p>Get a personalised analysis from a certified personal trainer who can factor in your complete health picture, lifestyle, and create a realistic action plan tailored specifically for your situation.</p>
+                    
+                    <form class="capture-form" id="leadForm">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Email Address" required>
+                        <input type="tel" placeholder="Mobile Number" required>
+                        <button type="submit" class="capture-btn">Book My FREE Analysis & Consultation</button>
+                    </form>
+                    
+                    <p style="font-size: 0.9em; margin-top: 15px; opacity: 0.8;">
+                        This leads to a comprehensive fitness assessment and personalised training session.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('fitnessForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateResults();
+        });
+        
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleLeadCapture();
+        });
+        
+        function calculateResults() {
+            // Get form values
+            const currentWeight = parseFloat(document.getElementById('currentWeight').value);
+            const goalWeight = parseFloat(document.getElementById('goalWeight').value);
+            const timeline = parseInt(document.getElementById('timeline').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const activity = parseFloat(document.getElementById('activity').value);
+            
+            // Calculate BMR using Mifflin-St Jeor Equation
+            let bmr;
+            if (gender === 'male') {
+                bmr = (10 * currentWeight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * currentWeight) + (6.25 * height) - (5 * age) - 161;
+            }
+            
+            // Calculate TDEE
+            const tdee = bmr * activity;
+            
+            // Calculate weight change needed
+            const weightChange = goalWeight - currentWeight;
+            const isWeightLoss = weightChange < 0;
+            const absoluteWeightChange = Math.abs(weightChange);
+            
+            // Calculate weekly rate
+            const weeklyRate = absoluteWeightChange / timeline;
+            
+            // Calculate daily calorie deficit/surplus needed
+            const dailyCalorieChange = (absoluteWeightChange * 7700) / (timeline * 7); // 7700 cal per kg
+            
+            // Determine if goal is realistic
+            let goalCategory, goalColor, goalMessage;
+            
+            if (isWeightLoss) {
+                if (weeklyRate <= 0.5) {
+                    goalCategory = "Conservative";
+                    goalColor = "conservative";
+                    goalMessage = "Your goal is quite conservative and very achievable. You might even reach it sooner!";
+                } else if (weeklyRate <= 1) {
+                    goalCategory = "Realistic";
+                    goalColor = "realistic";
+                    goalMessage = "Your goal is realistic and sustainable. This is an excellent pace for lasting results.";
+                } else if (weeklyRate <= 1.5) {
+                    goalCategory = "Aggressive";
+                    goalColor = "aggressive";
+                    goalMessage = "Your goal is aggressive but possible with strict adherence to diet and exercise.";
+                } else {
+                    goalCategory = "Very Aggressive";
+                    goalColor = "aggressive";
+                    goalMessage = "Your timeline is very aggressive and may not be sustainable or healthy. Consider extending your timeline.";
+                }
+            } else {
+                if (weeklyRate <= 0.25) {
+                    goalCategory = "Realistic";
+                    goalColor = "realistic";
+                    goalMessage = "Your weight gain goal is realistic and sustainable.";
+                } else {
+                    goalCategory = "Aggressive";
+                    goalColor = "aggressive";
+                    goalMessage = "This weight gain rate is quite fast. Much of the gain might be fat rather than muscle.";
+                }
+            }
+            
+            // Calculate target calories
+            const targetCalories = isWeightLoss ? 
+                Math.round(tdee - dailyCalorieChange) : 
+                Math.round(tdee + dailyCalorieChange);
+            
+            // Calculate realistic timeline
+            const maxHealthyWeeklyLoss = 1; // kg per week
+            const maxHealthyWeeklyGain = 0.25; // kg per week
+            const maxWeeklyRate = isWeightLoss ? maxHealthyWeeklyLoss : maxHealthyWeeklyGain;
+            const realisticWeeks = Math.ceil(absoluteWeightChange / maxWeeklyRate);
+            
+            // Display results
+            document.getElementById('goalAnalysis').innerHTML = `
+                <div class="result-value ${goalColor}">${goalCategory}</div>
+                <p>${goalMessage}</p>
+                <p><strong>Weekly rate:</strong> ${weeklyRate.toFixed(2)}kg per week</p>
+            `;
+            
+            document.getElementById('calorieInfo').innerHTML = `
+                <div class="result-value">${targetCalories} calories/day</div>
+                <p><strong>Current maintenance:</strong> ${Math.round(tdee)} calories/day</p>
+                <p><strong>Daily ${isWeightLoss ? 'deficit' : 'surplus'} needed:</strong> ${Math.round(dailyCalorieChange)} calories</p>
+            `;
+            
+            let timelineMessage;
+            if (timeline <= realisticWeeks) {
+                timelineMessage = "Your timeline aligns well with healthy recommendations.";
+            } else {
+                timelineMessage = `For optimal health and sustainability, consider ${realisticWeeks} weeks instead of ${timeline} weeks.`;
+            }
+            
+            document.getElementById('timelineInfo').innerHTML = `
+                <div class="result-value">${realisticWeeks} weeks recommended</div>
+                <p>${timelineMessage}</p>
+                <p><strong>Your timeline:</strong> ${timeline} weeks</p>
+            `;
+            
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function handleLeadCapture() {
+            // In a real implementation, this would send data to your backend
+            alert('Thank you! Your consultation request has been submitted. You\'ll be contacted within 24 hours to schedule your FREE analysis and fitness assessment.');
+            
+            // Reset form
+            document.getElementById('leadForm').reset();
+        }
+    </script>
+</body>
+</html>
