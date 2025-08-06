@@ -474,13 +474,76 @@
             document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
         }
         
-        function handleLeadCapture() {
-            // In a real implementation, this would send data to your backend
+        async function handleLeadCapture() {
+    const form = document.getElementById('leadForm');
+    const formData = new FormData(form);
+    
+    // Get contact data from form
+    const contactData = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone')
+    };
+
+    // Get fitness data from the original form
+    const fitnessData = {
+        currentWeight: document.getElementById('currentWeight').value,
+        goalWeight: document.getElementById('goalWeight').value,
+        timeline: document.getElementById('timeline').value,
+        height: document.getElementById('height').value,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        activityLevel: document.getElementById('activity').value
+    };
+
+    // Get calculated values (we'll store these when calculations are done)
+    const calculatedData = window.lastCalculation || {};
+
+    // Combine all data
+    const data = {
+        ...contactData,
+        ...fitnessData,
+        ...calculatedData
+    };
+
+    // Validate fields
+    if (!data.name || !data.email || !data.phone) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    // Show loading state
+    const submitBtn = form.querySelector('.capture-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+
+    try {
+        const response = await fetch('/.netlify/functions/submit-reality-checker', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
             alert('Thank you! Your consultation request has been submitted. You\'ll be contacted within 24 hours to schedule your FREE analysis and fitness assessment.');
-            
-            // Reset form
-            document.getElementById('leadForm').reset();
+            form.reset();
+        } else {
+            throw new Error(result.error || 'Submission failed');
         }
+    } catch (error) {
+        console.error('Submission error:', error);
+        alert('Sorry, there was an error submitting your request. Please try again or contact us directly.');
+    } finally {
+        // Restore button state
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+}
     </script>
 </body>
 </html>
