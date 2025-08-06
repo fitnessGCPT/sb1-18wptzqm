@@ -2,6 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Phone, Mail, MapPin, Instagram, Facebook, Dumbbell, Users, Trophy, Smartphone, Star, ArrowRight, CheckCircle, ExternalLink, X } from 'lucide-react';
 import AdminPopover from './components/AdminPopover';
 
+// Inside your main App component, add this useEffect:
+useEffect(() => {
+  // Check if we need to scroll to a specific section
+  const sectionId = sessionStorage.getItem('scrollToSection');
+  if (sectionId) {
+    sessionStorage.removeItem('scrollToSection'); // Clean up
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 500); // Small delay to ensure page is fully loaded
+  }
+}, []); // Empty dependency array means this runs once when component mounts
+
 function App() {
   const [formData, setFormData] = useState({
     name: '',
