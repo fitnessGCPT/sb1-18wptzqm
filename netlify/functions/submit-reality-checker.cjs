@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
     // Airtable API configuration
     const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
     const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-    const AIRTABLE_TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Fitness Assessment Leads';
+    const AIRTABLE_TABLE_NAME = process.env.AIRTABLE_REALITY_CHECKER_TABLE || 'Reality Checker';
 
     if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
       throw new Error('Airtable configuration missing');
@@ -54,20 +54,22 @@ exports.handler = async (event, context) => {
         'Source': 'Fitness Goal Reality Checker',
         'Date Submitted': new Date().toISOString(),
         'Status': 'New Lead',
-        // Fitness Data
+        // Personal Info
+        'Age': age ? parseInt(age) : null,
+        'Gender': gender || null,
+        'Height (cm)': height ? parseFloat(height) : null,
+        'Activity Level': activityLevel || null,
+        // Goal Data
         'Current Weight (kg)': currentWeight ? parseFloat(currentWeight) : null,
         'Goal Weight (kg)': goalWeight ? parseFloat(goalWeight) : null,
         'Timeline (weeks)': timeline ? parseInt(timeline) : null,
-        'Height (cm)': height ? parseFloat(height) : null,
-        'Age': age ? parseInt(age) : null,
-        'Gender': gender || null,
-        'Activity Level': activityLevel || null,
+        'Weight Change (kg)': (currentWeight && goalWeight) ? parseFloat((goalWeight - currentWeight).toFixed(1)) : null,
+        // Calculated Results
         'BMR': bmr ? Math.round(bmr) : null,
         'TDEE': tdee ? Math.round(tdee) : null,
         'Target Calories': targetCalories ? Math.round(targetCalories) : null,
         'Goal Category': goalCategory || null,
-        'Weekly Rate (kg)': weeklyRate ? parseFloat(weeklyRate.toFixed(2)) : null,
-        'Weight Change (kg)': (currentWeight && goalWeight) ? parseFloat((goalWeight - currentWeight).toFixed(1)) : null
+        'Weekly Rate (kg)': weeklyRate ? parseFloat(weeklyRate.toFixed(2)) : null
       }
     };
 
