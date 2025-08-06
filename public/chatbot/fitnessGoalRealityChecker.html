@@ -472,8 +472,7 @@
             
             document.getElementById('results').style.display = 'block';
             document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        }
-
+        
 // Store calculated values for lead capture
 window.lastCalculation = {
     bmr: bmr,
@@ -482,7 +481,7 @@ window.lastCalculation = {
     goalCategory: goalCategory,
     weeklyRate: weeklyRate
 };
-        
+ }       
         async function handleLeadCapture() {
     const form = document.getElementById('leadForm');
     const formData = new FormData(form);
